@@ -21,16 +21,16 @@ public class BuildingRepositoyImpl implements BuildingRepository
 {
 
 	@Override
-	public List<BuildingEntity> findAll(String TimTheoTen, Integer TimTheoSoTangHam) 
+	public List<BuildingEntity> findAll(String name, Integer numberOfBasement) 
 	{
 		
 		String sql="SELECT * FROM building\n";
 		//String where=" WHERE 1=1";
 		StringBuilder whereClause = new StringBuilder();
-		if(TimTheoTen!=null && !TimTheoTen.equals(""))
-			whereClause.append("WHERE name LIKE '%" +TimTheoTen+ "%'");
-		if(TimTheoSoTangHam!=null)
-			whereClause.append(" AND numberofbasement = " +TimTheoSoTangHam);
+		if(name!=null && !name.equals(""))
+			whereClause.append("WHERE name LIKE '%" +name+ "%'");
+		if(numberOfBasement!=null)
+			whereClause.append(" AND numberofbasement = " +numberOfBasement);
 		sql+=whereClause.toString();
 		
 		List<BuildingEntity> result=new ArrayList<>();
@@ -40,12 +40,12 @@ public class BuildingRepositoyImpl implements BuildingRepository
 			){
 			while(rs.next()) 
 			{
-				BuildingEntity b=new BuildingEntity();
-				b.setName(rs.getString("name"));
-				b.setDistrictId(rs.getInt("districtid"));
-				b.setStreet(rs.getString("street"));
-				b.setWard(rs.getString("ward"));
-				result.add(b);
+				BuildingEntity building=new BuildingEntity();
+				building.setName(rs.getString("name"));
+				building.setDistrictId(rs.getInt("districtid"));
+				building.setStreet(rs.getString("street"));
+				building.setWard(rs.getString("ward"));
+				result.add(building);
 			}
 			System.out.print("Connection database ok con ga quay");
 		}catch (SQLException e) {

@@ -6,7 +6,7 @@ import com.javaweb.repository.entity.BuildingEntity;
 
 public interface BuildingRepository 
 {
-	List<BuildingEntity> findAll(String TimTheoTen, Integer TimTheoSoTangHam);
+	List<BuildingEntity> findAll(String name, Integer numberOfBasement);
 	
 	
 	void delete(Integer[] ids);

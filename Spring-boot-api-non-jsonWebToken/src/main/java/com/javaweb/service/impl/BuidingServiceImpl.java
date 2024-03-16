@@ -16,22 +16,22 @@ import com.javaweb.service.BuildingService;
 public class BuidingServiceImpl implements BuildingService
 {
 	@Autowired
-	private BuildingRepository A;
+	private BuildingRepository buildingRepository;
 	
 	
 	@Override
-	public List<BuildingDTO> findAll(String TimTheoTen, Integer TimTheoSoTangHam) 
+	public List<BuildingDTO> findAll(String name, Integer numberOfBasement) 
 	{
-		List<BuildingEntity> a=A.findAll(TimTheoTen, TimTheoSoTangHam);
+		List<BuildingEntity> buildingEntities=buildingRepository.findAll(name, numberOfBasement);
 		List<BuildingDTO> result=new ArrayList<>();
-		for(BuildingEntity item:a)
+		for(BuildingEntity item:buildingEntities)
 		{
-			BuildingDTO b=new BuildingDTO();
-			b.setName(item.getName());
-			b.setAddress(item.getStreet() +", "+ item.getWard() +", "+ item.getDistrictId());
-			b.setManagerName(item.getManagerName());
+			BuildingDTO building=new BuildingDTO();
+			building.setName(item.getName());
+			building.setAddress(item.getStreet() +", "+ item.getWard() +", "+ item.getDistrictId());
+			building.setManagerName(item.getManagerName());
 			
-			result.add(b);
+			result.add(building);
 		}
 		return result;
 	}

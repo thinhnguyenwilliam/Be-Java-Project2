@@ -21,9 +21,9 @@ public class ControllerAdvisor
 	{
 		ErrorResponseDTO erd=new ErrorResponseDTO();
 		erd.setError(ex.getMessage());
-		List<String> e1=new ArrayList<String>();
-		e1.add("so nguyen khong chia duoc cho 0");
-		erd.setDetail(e1);
+		List<String> listError=new ArrayList<>();
+		listError.add("so nguyen khong chia duoc cho 0");
+		erd.setDetail(listError);
 
         return new ResponseEntity<>(erd, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -36,9 +36,9 @@ public class ControllerAdvisor
 	{
 		ErrorResponseDTO erd=new ErrorResponseDTO();
 		erd.setError(e.getMessage());
-		List<String> e1=new ArrayList<String>();
-		e1.add("ten hoac quan chua duoc gui ve");
-		erd.setDetail(e1);
+		List<String> listError=new ArrayList<>();
+		listError.add("ten hoac quan chua duoc gui ve");
+		erd.setDetail(listError);
 
         return new ResponseEntity<>(erd, HttpStatus.BAD_REQUEST);
     }

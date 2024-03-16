@@ -32,17 +32,17 @@ public class BuildingAPI
 {
 	 
 	@Autowired
-	private BuildingService X;
+	private BuildingService buildingService;
 	
 	
 	@GetMapping(value = "/api/Building")
 	public List<BuildingDTO> findBuilding(@RequestParam Map<String, Object> params,
-			                           @RequestParam(name = "typeCode", required = false) List<String> res3,
-			                           @RequestParam(value="ten", required = false) String res1,
-			                           @RequestParam(value="soTangHam", required = false) Integer res5) {
-		List<BuildingDTO> res=X.findAll(res1, res5);
-		return res;
-	}
+			                           @RequestParam(name = "maLoai", required = false) List<String> typeCode,
+			                           @RequestParam(value="ten", required = false) String name,
+			                           @RequestParam(value="soTangHam", required = false) Integer numberOfBasement) {
+		List<BuildingDTO> result=buildingService.findAll(name, numberOfBasement);
+		return result;
+	}   
 
 
 	
