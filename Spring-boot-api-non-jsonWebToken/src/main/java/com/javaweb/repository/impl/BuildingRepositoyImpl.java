@@ -20,6 +20,7 @@ import com.javaweb.utils.ConnectionUtil;
 public class BuildingRepositoyImpl implements BuildingRepository 
 {
 
+	/*
 	@Override
 	public List<BuildingEntity> findAll(String name, Integer numberOfBasement) 
 	{
@@ -34,11 +35,11 @@ public class BuildingRepositoyImpl implements BuildingRepository
 		sql+=whereClause.toString();
 		
 		List<BuildingEntity> result=new ArrayList<>();
-		try(Connection conn=ConnectionUtil .getConnection();
+		try(Connection conn=ConnectionUtil.getConnection();
 			Statement stm=conn.createStatement();
 				ResultSet rs=stm.executeQuery(sql);
 			){
-			while(rs.next()) 
+			while(rs.next()) //di tung row trong table
 			{
 				BuildingEntity building=new BuildingEntity();
 				building.setName(rs.getString("name"));
@@ -63,6 +64,50 @@ public class BuildingRepositoyImpl implements BuildingRepository
 	public void delete(Integer[] ids) 
 	{
 		
+		
+	}
+
+	*/
+	
+	@Override
+	public List<BuildingEntity> find(String name) 
+	{
+		String sql="SELECT * FROM building\n";
+		sql+="JOIN rentarea ON building.id=rentarea.buildingid\n";
+		StringBuilder whereClause = new StringBuilder();
+		if(name!=null && !name.equals(""))
+			whereClause.append("WHERE name LIKE '%" +name+ "%';");
+		sql+=whereClause.toString();
+		
+		
+		
+		
+		List<BuildingEntity> result=new ArrayList<>();
+		try(Connection conn=ConnectionUtil.getConnection();
+			Statement stm=conn.createStatement();
+				ResultSet rs=stm.executeQuery(sql);
+			){
+			BuildingEntity building=new BuildingEntity();
+			List<Integer> valuesRentArea=new ArrayList<>();
+			while(rs.next()) //di tung row trong table
+			{
+				building.setName(rs.getString("name"));
+				building.setDistrictId(rs.getInt("districtid"));
+				building.setStreet(rs.getString("street"));
+				building.setWard(rs.getString("ward"));
+				building.setManagerName(rs.getString("managername"));
+				valuesRentArea.add(rs.getInt("value"));
+			}
+			building.setValue(valuesRentArea);
+			result.add(building);
+			System.out.print("Connection database ok con ga quay");
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.print("Connection database fail no no no bae come on");
+		}   
+		
+
+	    return result;
 		
 	}
 	

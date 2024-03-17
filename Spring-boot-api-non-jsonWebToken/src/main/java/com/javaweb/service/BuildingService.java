@@ -7,5 +7,7 @@ import com.javaweb.repository.entity.BuildingEntity;
 
 public interface BuildingService 
 {
-	List<BuildingDTO> findAll(String name, Integer numberOfBasement);
+	//List<BuildingDTO> findAll(String name, Integer numberOfBasement);
+	
+	List<BuildingDTO> find(String name);
 }

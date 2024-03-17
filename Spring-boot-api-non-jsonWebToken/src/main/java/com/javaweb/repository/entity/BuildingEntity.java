@@ -1,7 +1,10 @@
 package com.javaweb.repository.entity;
 
+import java.util.List;
+
 public class BuildingEntity 
 {
+	//trong table building
 	private String name;
 	private String ward;
 	private String street;
@@ -9,9 +12,26 @@ public class BuildingEntity
 	private Integer numberOfBasement;
 	private String managerName;
 	private String managerNamePhoneNumber;
+	private Integer floorArea;
+	
+	//trong table rentArea
+	private List<Integer> value;
 	
 	
 	
+
+	public List<Integer> getValue() {
+		return value;
+	}
+	public void setValue(List<Integer> value) {
+		this.value = value;
+	}
+	public Integer getFloorArea() {
+		return floorArea;
+	}
+	public void setFloorArea(Integer floorArea) {
+		this.floorArea = floorArea;
+	}
 	public String getName() {
 		return name;
 	}

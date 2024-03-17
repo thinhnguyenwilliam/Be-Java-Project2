@@ -35,6 +35,7 @@ public class BuildingAPI
 	private BuildingService buildingService;
 	
 	
+	/*
 	@GetMapping(value = "/api/Building")
 	public List<BuildingDTO> findBuilding(@RequestParam Map<String, Object> params,
 			                           @RequestParam(name = "maLoai", required = false) List<String> typeCode,
@@ -42,7 +43,20 @@ public class BuildingAPI
 			                           @RequestParam(value="soTangHam", required = false) Integer numberOfBasement) {
 		List<BuildingDTO> result=buildingService.findAll(name, numberOfBasement);
 		return result;
-	}   
+	}
+	*/
+	
+	
+	/*
+	 * em bat dau lam tu day
+	 */
+	// tim kiem theo ten toa nha
+	@GetMapping(value = "/api/Building")
+	public List<BuildingDTO> findByNameBuilding(@RequestParam(value="ten", required = false) String name) {
+		List<BuildingDTO> result=buildingService.find(name);
+		return result;
+	}
+	
 
 
 	
