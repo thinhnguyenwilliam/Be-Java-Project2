@@ -116,10 +116,7 @@ public class BuildingRepositoyImpl implements BuildingRepository
 			e.printStackTrace();
 			System.out.print("Connection database fail no no no bae come on");
 		}   
-		
-
-	    return result;
-		
+	    return result;	
 	}
 	
 }
