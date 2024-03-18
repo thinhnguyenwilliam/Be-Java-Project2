@@ -33,12 +33,13 @@ public class BuildingAPI
 	 
 	@Autowired
 	private BuildingService buildingService;
+	@GetMapping(value = "/api/Building")
+	
 	
 	
 	/*
-	@GetMapping(value = "/api/Building")
 	public List<BuildingDTO> findBuilding(@RequestParam Map<String, Object> params,
-			                           @RequestParam(name = "maLoai", required = false) List<String> typeCode,
+			                           @RequestParam(value = "maLoai", required = false) List<String> typeCode,
 			                           @RequestParam(value="ten", required = false) String name,
 			                           @RequestParam(value="soTangHam", required = false) Integer numberOfBasement) {
 		List<BuildingDTO> result=buildingService.findAll(name, numberOfBasement);
@@ -51,8 +52,9 @@ public class BuildingAPI
 	 * em bat dau lam tu day
 	 */
 	// tim kiem theo ten toa nha
-	@GetMapping(value = "/api/Building")
-	public List<BuildingDTO> findByNameBuilding(@RequestParam(value="ten", required = false) String name) {
+	public List<BuildingDTO> findByNameBuilding(@RequestParam Map<String, Object> params) 
+	{
+		String name = (String) params.get("ten");
 		List<BuildingDTO> result=buildingService.find(name);
 		return result;
 	}

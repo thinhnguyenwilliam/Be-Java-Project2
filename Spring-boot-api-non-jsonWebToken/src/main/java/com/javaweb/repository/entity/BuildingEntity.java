@@ -13,13 +13,27 @@ public class BuildingEntity
 	private String managerName;
 	private String managerNamePhoneNumber;
 	private Integer floorArea;
+	private Integer brokeragefee;
+	private Integer servicefee;
 	
 	//trong table rentArea
 	private List<Integer> value;
+		
+		
+		
 	
-	
-	
-
+	public Integer getBrokeragefee() {
+		return brokeragefee;
+	}
+	public void setBrokeragefee(Integer brokeragefee) {
+		this.brokeragefee = brokeragefee;
+	}
+	public Integer getServicefee() {
+		return servicefee;
+	}
+	public void setServicefee(Integer servicefee) {
+		this.servicefee = servicefee;
+	}
 	public List<Integer> getValue() {
 		return value;
 	}
