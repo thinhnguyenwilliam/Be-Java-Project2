@@ -15,13 +15,19 @@ public class BuildingEntity
 	private Integer floorArea;
 	private Integer brokeragefee;
 	private Integer servicefee;
+	private Integer rentprice;
 	
 	//trong table rentArea
 	private List<Integer> value;
 		
 		
 		
-	
+	public Integer getRentprice() {
+		return rentprice;
+	}
+	public void setRentprice(Integer rentprice) {
+		this.rentprice = rentprice;
+	}
 	public Integer getBrokeragefee() {
 		return brokeragefee;
 	}

@@ -13,9 +13,15 @@ public class BuildingDTO {
 	private String rentArea;//gom nhieu so cach nhau dau ", "
 	private Integer brokerFee;
 	private Integer serviceFee;
+	private Integer rentprice;
 	
 	
-	
+	public Integer getRentprice() {
+		return rentprice;
+	}
+	public void setRentprice(Integer rentprice) {
+		this.rentprice = rentprice;
+	}
 	public Integer getNumberOfBasement() {
 		return numberOfBasement;
 	}

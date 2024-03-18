@@ -106,6 +106,7 @@ public class BuildingRepositoyImpl implements BuildingRepository
 				building.setFloorArea(rs.getInt("floorarea"));
 				building.setBrokeragefee(rs.getInt("brokeragefee"));
 				building.setServicefee(rs.getInt("servicefee"));
+				building.setRentprice(rs.getInt("rentprice"));
 						
 				valuesRentArea.add(rs.getInt("value"));
 			}

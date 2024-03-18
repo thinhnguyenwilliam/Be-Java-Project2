@@ -63,6 +63,7 @@ public class BuidingServiceImpl implements BuildingService
 			
 			building.setBrokerFee(item.getBrokeragefee());
 			building.setServiceFee(item.getServicefee());
+			building.setRentprice(item.getRentprice());
 			
 			result.add(building);
 		}
