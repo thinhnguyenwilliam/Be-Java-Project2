@@ -148,4 +148,57 @@ public class BuildingRepositoyImpl implements BuildingRepository {
 		return result;
 	}
 
+	@Override
+	public List<BuildingEntity> findByDistrict(Integer district) 
+	{
+		String sql = "SELECT building.*, GROUP_CONCAT(rentarea.value) AS combined_values\n" + "FROM building\n"
+				+ "JOIN rentarea ON building.id = rentarea.buildingid\n" + "WHERE building.districtid = %d\n"
+				+ "GROUP BY building.id;";
+
+		String finalSql = null;
+		if (district != null)
+			finalSql = String.format(sql, district);
+		else
+			return Collections.emptyList();
+
+		List<BuildingEntity> result = new ArrayList<>();
+		try (Connection conn = ConnectionUtil.getConnection();
+				Statement stm = conn.createStatement();
+				ResultSet rs = stm.executeQuery(finalSql);) {
+			while (rs.next()) {
+				BuildingEntity building = new BuildingEntity(); // Create a new BuildingEntity object for each row
+				building.setName(rs.getString("name"));
+				building.setDistrictId(rs.getInt("districtid"));
+				building.setStreet(rs.getString("street"));
+				building.setWard(rs.getString("ward"));
+				building.setNumberOfBasement(rs.getInt("numberofbasement"));
+				building.setManagerName(rs.getString("managername"));
+				building.setManagerNamePhoneNumber(rs.getString("managerphonenumber"));
+				building.setFloorArea(rs.getInt("floorarea"));
+				building.setBrokeragefee(rs.getInt("brokeragefee"));
+				building.setServicefee(rs.getInt("servicefee"));
+				building.setRentprice(rs.getInt("rentprice"));
+
+				String combinedValuesStr = rs.getString("combined_values");
+				if (combinedValuesStr != null) 
+				{
+					String[] arr = combinedValuesStr.split("[\\s,]+"); // Split the combined_values string
+					List<Integer> combinedValuesList = new ArrayList<>();
+					for (String value : arr) 
+						combinedValuesList.add(Integer.parseInt(value.trim())); // Convert each value to integer and add
+																				// to the list
+					
+					building.setValue(combinedValuesList); // Set the combined values list
+				}
+
+				result.add(building);
+			}
+			System.out.print("Connection database ok con ga quay");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.print("Connection database fail no no no bae come on");
+		}
+		return result;
+	}
+
 }

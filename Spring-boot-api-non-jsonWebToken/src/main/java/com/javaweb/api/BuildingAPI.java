@@ -66,6 +66,13 @@ public class BuildingAPI
 		    List<BuildingDTO> result = buildingService.findByFloorArea(floorArea);
 		    return result;
 		}	
+		
+		if(params.containsKey("quan"))
+		{
+			Integer district = Integer.valueOf((String) params.get("quan"));
+		    List<BuildingDTO> result = buildingService.findByDistrict(district);
+		    return result;
+		}
 		return null;
 	}
 	

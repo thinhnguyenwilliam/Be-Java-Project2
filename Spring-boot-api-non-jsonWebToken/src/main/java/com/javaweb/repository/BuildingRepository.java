@@ -15,4 +15,5 @@ public interface BuildingRepository
 	 */
 	List<BuildingEntity> findByName(String name);
 	List<BuildingEntity> findByFloorArea(Integer floorArea);
+	List<BuildingEntity> findByDistrict(Integer district);
 }

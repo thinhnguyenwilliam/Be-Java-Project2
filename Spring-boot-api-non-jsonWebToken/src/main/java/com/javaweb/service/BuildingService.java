@@ -11,4 +11,5 @@ public interface BuildingService
 	
 	List<BuildingDTO> findByName(String name);
 	List<BuildingDTO> findByFloorArea(Integer floorArea);
+	List<BuildingDTO> findByDistrict(Integer district);
 }
