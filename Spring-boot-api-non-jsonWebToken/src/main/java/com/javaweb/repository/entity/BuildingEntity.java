@@ -16,11 +16,18 @@ public class BuildingEntity
 	private Integer brokeragefee;
 	private Integer servicefee;
 	private Integer rentprice;
+	private Integer Id;
 	
 	//trong table rentArea
 	private List<Integer> value;
 		
 		
+	public Integer getId() {
+		return Id;
+	}
+	public void setId(Integer id) {
+		Id = id;
+	}
 		
 	public Integer getRentprice() {
 		return rentprice;

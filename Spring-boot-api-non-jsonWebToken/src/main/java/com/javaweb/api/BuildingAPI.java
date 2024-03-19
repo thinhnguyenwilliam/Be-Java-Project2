@@ -51,13 +51,25 @@ public class BuildingAPI
 	/*
 	 * em bat dau lam tu day
 	 */
-	// tim kiem theo ten toa nha
 	public List<BuildingDTO> findByNameBuilding(@RequestParam Map<String, Object> params) 
 	{
-		String name = (String) params.get("ten");
-		List<BuildingDTO> result=buildingService.find(name);
-		return result;
+		if (params.containsKey("ten"))
+		{
+			String name = (String) params.get("ten");
+			List<BuildingDTO> result=buildingService.findByName(name);
+			return result;
+		}
+		
+		if (params.containsKey("dienTichSan"))
+		{
+			Integer floorArea = Integer.valueOf((String) params.get("dienTichSan"));
+		    List<BuildingDTO> result = buildingService.findByFloorArea(floorArea);
+		    return result;
+		}	
+		return null;
 	}
+	
+	
 	
 
 

@@ -13,5 +13,6 @@ public interface BuildingRepository
 	/*
 	 * em bat dau lam tu day
 	 */
-	List<BuildingEntity> find(String name);
+	List<BuildingEntity> findByName(String name);
+	List<BuildingEntity> findByFloorArea(Integer floorArea);
 }

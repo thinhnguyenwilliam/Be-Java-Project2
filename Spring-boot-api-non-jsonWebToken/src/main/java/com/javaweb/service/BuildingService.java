@@ -9,5 +9,6 @@ public interface BuildingService
 {
 	//List<BuildingDTO> findAll(String name, Integer numberOfBasement);
 	
-	List<BuildingDTO> find(String name);
+	List<BuildingDTO> findByName(String name);
+	List<BuildingDTO> findByFloorArea(Integer floorArea);
 }
