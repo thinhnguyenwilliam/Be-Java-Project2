@@ -16,4 +16,17 @@ public interface BuildingRepository
 	List<BuildingEntity> findByName(String name);
 	List<BuildingEntity> findByFloorArea(Integer floorArea);
 	List<BuildingEntity> findByDistrict(Integer district);
+	List<BuildingEntity> findByWard(Integer ward);
+	List<BuildingEntity> findByStreet(String street);
+	List<BuildingEntity> findNumberOfBasement(Integer numberOfBasement);
+	List<BuildingEntity> findByDirection(String direction);
+	List<BuildingEntity> findByLevel(String level);
+	List<BuildingEntity> findByAreaFrom(Integer areaFrom);
+	List<BuildingEntity> findByAreaTo(Integer areaTo);
+	List<BuildingEntity> findByRentPriceFrom(Integer rentPriceFrom);
+	List<BuildingEntity> findByRentPriceTo(Integer rentPriceTo);
+	List<BuildingEntity> findByManagerName(String managerName);
+	List<BuildingEntity> findByManagerPhone(String managerPhone);
+	List<BuildingEntity> findByStaffId(Integer staffId);
+	List<BuildingEntity> findByTypeCode(List<String> typeCode);
 }

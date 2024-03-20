@@ -51,7 +51,8 @@ public class BuildingAPI
 	/*
 	 * em bat dau lam tu day
 	 */
-	public List<BuildingDTO> findByNameBuilding(@RequestParam Map<String, Object> params) 
+	public List<BuildingDTO> findByNameBuilding(@RequestParam Map<String, Object> params,
+												@RequestParam(value = "maLoai", required = false) List<String> typeCode) 
 	{
 		if (params.containsKey("ten"))
 		{
@@ -73,6 +74,97 @@ public class BuildingAPI
 		    List<BuildingDTO> result = buildingService.findByDistrict(district);
 		    return result;
 		}
+		
+		if(params.containsKey("phuong"))
+		{
+			Integer ward = Integer.valueOf((String) params.get("phuong"));
+		    List<BuildingDTO> result = buildingService.findByWard(ward);
+		    return result;
+		}
+		
+		if(params.containsKey("duong"))
+		{
+			String street = (String) params.get("duong");
+		    List<BuildingDTO> result = buildingService.findByStreet(street);
+		    return result;
+		}
+		
+		if(params.containsKey("soTangHam"))
+		{
+			Integer numberOfBasement = Integer.valueOf((String) params.get("soTangHam"));
+		    List<BuildingDTO> result = buildingService.findByNumberOfBasement(numberOfBasement);
+		    return result;
+		}
+		
+		if(params.containsKey("huong"))
+		{
+			String direction = (String) params.get("huong");
+			List<BuildingDTO> result=buildingService.findByDirection(direction);
+			return result;
+		}
+		
+		if(params.containsKey("hang"))
+		{
+			String level = (String) params.get("hang");
+			List<BuildingDTO> result=buildingService.findByLevel(level);
+			return result;
+		}
+		
+		if(params.containsKey("dienTichTu"))
+		{
+			Integer areaFrom = Integer.valueOf((String) params.get("dienTichTu"));
+		    List<BuildingDTO> result = buildingService.findByAreaFrom(areaFrom);
+		    return result;
+		}
+		
+		if(params.containsKey("dienTichDen"))
+		{
+			Integer areaTo = Integer.valueOf((String) params.get("dienTichDen"));
+		    List<BuildingDTO> result = buildingService.findByAreaTo(areaTo);
+		    return result;
+		}
+		
+		if(params.containsKey("giaThueTu"))
+		{
+			Integer rentPriceFrom = Integer.valueOf((String) params.get("giaThueTu"));
+		    List<BuildingDTO> result = buildingService.findByRentPriceFrom(rentPriceFrom);
+		    return result;
+		}
+		
+		if(params.containsKey("giaThueDen"))
+		{
+			Integer rentPriceTo = Integer.valueOf((String) params.get("giaThueDen"));
+		    List<BuildingDTO> result = buildingService.findByRentPriceTo(rentPriceTo);
+		    return result;
+		}
+		
+		if(params.containsKey("tenQuanLy"))
+		{
+			String managerName = (String) params.get("tenQuanLy");
+			List<BuildingDTO> result=buildingService.findByManagerName(managerName);
+			return result;
+		}
+		
+		if(params.containsKey("sdtQuanLy"))
+		{
+			String managerPhone = (String) params.get("sdtQuanLy");
+			List<BuildingDTO> result=buildingService.findByManagerPhone(managerPhone);
+			return result;
+		}
+		
+		if(params.containsKey("maNhanVien"))
+		{
+			Integer staffId = Integer.valueOf((String) params.get("maNhanVien"));
+		    List<BuildingDTO> result = buildingService.findByStaffId(staffId);
+		    return result;
+		}
+		
+		if(params.containsKey("maLoai"))
+		{
+		    List<BuildingDTO> result = buildingService.findByTypeCode(typeCode);
+		    return result;
+		}
+		
 		return null;
 	}
 	
