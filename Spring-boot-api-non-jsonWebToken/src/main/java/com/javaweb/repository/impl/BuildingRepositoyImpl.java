@@ -28,33 +28,38 @@ public class BuildingRepositoyImpl implements BuildingRepository {
         if (params.containsKey("ten")) {
             String name = (String) params.get("ten");
             if (name != null && !name.equals("")) {
-                sql = "SELECT building.*, GROUP_CONCAT(DISTINCT rentarea.value) AS combined_values "
-                        + "FROM building " + "JOIN rentarea ON building.id = rentarea.buildingid "
-                        + "WHERE building.name LIKE ? " + "GROUP BY building.id";
+                sql = "SELECT building.*, GROUP_CONCAT(DISTINCT rentarea.value) AS combined_values \n"
+                        + "FROM building \n" + "JOIN rentarea ON building.id = rentarea.buildingid \n"
+                        + "WHERE building.name LIKE ? \n" + "GROUP BY building.id \n";
                 nameFlag = true;
             }
         }
 
         if (params.containsKey("dienTichSan")) {
-            Integer floorArea = (Integer) params.get("dienTichSan");
+        	Integer floorArea = Integer.valueOf((String) params.get("dienTichSan"));
             if (floorArea != null) {
-                sql = "SELECT building.*, GROUP_CONCAT(rentarea.value) AS combined_values " + "FROM building "
-                        + "JOIN rentarea ON building.id = rentarea.buildingid " + "WHERE building.floorarea = ? "
-                        + "GROUP BY building.id";
+                sql = "SELECT building.*, GROUP_CONCAT(rentarea.value) AS combined_values \n" + "FROM building \n"
+                        + "JOIN rentarea ON building.id = rentarea.buildingid \n" + "WHERE building.floorarea = ? \n"
+                        + "GROUP BY building.id \n";
                 floorAreaFlag = true;
             }
         }
 
+        
+        
+        
+        
+        
         try (Connection conn = ConnectionUtil.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             int paramIndex = 1; // Parameter index for PreparedStatement
 
             if (nameFlag) 
-                pstmt.setString(paramIndex++, "%" + params.get("ten") + "%");
+                pstmt.setString(paramIndex, "%" + params.get("ten") + "%");
             
             if (floorAreaFlag) 
-                pstmt.setInt(paramIndex, (int) params.get("dienTichSan"));
+                pstmt.setInt(paramIndex, Integer.valueOf((String) params.get("dienTichSan")));
             
 
             System.out.println("Connection to database successful.");
