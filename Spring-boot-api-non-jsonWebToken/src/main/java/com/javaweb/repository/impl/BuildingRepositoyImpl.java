@@ -23,20 +23,24 @@ public class BuildingRepositoyImpl implements BuildingRepository
     @Override
     public List<BuildingEntity> findBuilding(Map<String, Object> params, List<String> typeCode) 
     {
-        List<BuildingEntity> result = new ArrayList<>();
+        
         StringBuilder sqlBuilder = new StringBuilder("SELECT * \n"
         											+ "FROM building \n"
         											+ "WHERE 1=1");
+        ///////////////////
 
-        if (params.containsKey("ten")) {
+        if (params.containsKey("ten")) 
+        {
             String name = (String) params.get("ten");
-            if (name != null && !name.equals("")) {
+            if (name != null && !name.equals("")) 
                 sqlBuilder.append("\nAND building.name LIKE '%" + name + "%'");
-            }
         }
 
+        
+        
         String sql = sqlBuilder.toString();
-
+        ///////////////
+        List<BuildingEntity> result = new ArrayList<>();
         try (Connection conn = ConnectionUtil.getConnection();
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
@@ -55,7 +59,7 @@ public class BuildingRepositoyImpl implements BuildingRepository
                 building.setBrokeragefee(rs.getInt("brokeragefee"));
                 building.setServicefee(rs.getInt("servicefee"));
                 building.setRentprice(rs.getInt("rentprice"));
-
+                building.setId(rs.getInt("id"));
                 result.add(building);
             }
             System.out.println("Connection to database successful.");
