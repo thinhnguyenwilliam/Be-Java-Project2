@@ -2,7 +2,7 @@ package com.javaweb.repository.entity;
 
 import java.util.List;
 
-public class BuildingEntity 
+public class BuildingEntity
 {
 	//trong table building
 	private String name;
@@ -18,9 +18,7 @@ public class BuildingEntity
 	private Integer rentprice;
 	private Integer Id;
 	
-	//trong table rentArea
-	private List<Integer> value;
-		
+
 		
 	public Integer getId() {
 		return Id;
@@ -47,12 +45,7 @@ public class BuildingEntity
 	public void setServicefee(Integer servicefee) {
 		this.servicefee = servicefee;
 	}
-	public List<Integer> getValue() {
-		return value;
-	}
-	public void setValue(List<Integer> value) {
-		this.value = value;
-	}
+
 	public Integer getFloorArea() {
 		return floorArea;
 	}

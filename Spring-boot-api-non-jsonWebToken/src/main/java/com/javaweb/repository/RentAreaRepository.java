@@ -4,10 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.javaweb.repository.entity.BuildingEntity;
+import com.javaweb.repository.entity.RentAreaEntity;
 
-public interface BuildingRepository 
+public interface RentAreaRepository
 {
-	
-	List<BuildingEntity> findBuilding(Map<String, Object> params, List<String> typeCode);
-	
+	List<RentAreaEntity> findRentArea();
 }

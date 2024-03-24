@@ -35,13 +35,7 @@ public class BuidingServiceImpl implements BuildingService
 			building.setFloorArea(item.getFloorArea());
 			building.setEmptyArea(null);
 			
-			StringBuilder sb=new StringBuilder();
-			for(Integer valueRentArea:item.getValue())
-				sb.append(valueRentArea).append(", ");
-			int length = sb.length();
-			if (length > 0)
-				sb.delete(length - 2, length);//xoa 2 ky tu cuoi
-			building.setRentArea(sb.toString());	
+			
 			
 			building.setBrokerFee(item.getBrokeragefee());
 			building.setServiceFee(item.getServicefee());

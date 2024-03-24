@@ -26,29 +26,16 @@ import com.javaweb.service.BuildingService;
 @RestController
 //this is place receive request
 
+
 public class BuildingAPI {
 
 	@Autowired
 	private BuildingService buildingService;
 
+	
 	@GetMapping(value = "/api/Building")
 
-	/*
-	 * public List<BuildingDTO> findBuilding(@RequestParam Map<String, Object>
-	 * params,
-	 * 
-	 * @RequestParam(value = "maLoai", required = false) List<String> typeCode,
-	 * 
-	 * @RequestParam(value="ten", required = false) String name,
-	 * 
-	 * @RequestParam(value="soTangHam", required = false) Integer numberOfBasement)
-	 * { List<BuildingDTO> result=buildingService.findAll(name, numberOfBasement);
-	 * return result; }
-	 */
-
-	/*
-	 * em bat dau lam tu day
-	 */
+	
 	public List<BuildingDTO> findBuilding(@RequestParam Map<String, Object> params,
 										  @RequestParam(value = "maLoai", required = false) List<String> typeCode) 
 	{
@@ -58,25 +45,6 @@ public class BuildingAPI {
 
 	}
 
-//	public void validateData(BuildingDTO b1)
-//	{
-//		if(b1.getName()==null || b1.getName().equals("") || b1.getDistrictId() ==null)
-//			throw new FieldRequireException("ten hoac DistrictId bi NULL");
-//	}
 
-	@PostMapping(value = "/api/Building")
-	public Object createBuilding(@RequestBody BuildingDTO res4) {
-
-		// validateData(res4);
-
-		System.out.print("Ok kg gap loi");
-		return res4;
-	}
-
-	@DeleteMapping(value = "/api/Building/{IDs}/{NAMEs}/{HOME}")
-	public void deleteBuilding(@PathVariable List<Long> IDs, @PathVariable List<String> NAMEs,
-			@PathVariable String HOME) {
-		System.out.print("Ok 3");
-	}
 
 }
