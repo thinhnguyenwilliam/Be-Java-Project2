@@ -27,7 +27,8 @@ public class BuildingServiceImpl implements BuildingService {
     private DistrictRepository districtRepository;
 
     @Override
-    public List<BuildingDTO> findBuilding(Map<String, Object> params, List<String> typeCode) {
+    public List<BuildingDTO> findBuilding(Map<String, Object> params, List<String> typeCode) 
+    {
         List<BuildingEntity> buildingEntities = buildingRepository.findBuilding(params, typeCode);
         List<BuildingDTO> result = new ArrayList<>();
 

@@ -9,4 +9,5 @@ import com.javaweb.repository.entity.RentAreaEntity;
 public interface RentAreaRepository
 {
 	List<Integer> findValues(Integer buildingId);
+	
 }

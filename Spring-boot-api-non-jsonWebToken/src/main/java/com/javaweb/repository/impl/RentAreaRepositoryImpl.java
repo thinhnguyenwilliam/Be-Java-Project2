@@ -37,10 +37,10 @@ public class RentAreaRepositoryImpl implements RentAreaRepository
 	            while (rs.next()) 
 	                result.add(rs.getInt("value"));
 	            
-	            System.out.println("Connection to database successful.");
+	            System.out.println("Connection to database successful table reantArea.");
 	        } catch (SQLException e) {
 	            e.printStackTrace();
-	            System.out.println("Failed to connect to database.");
+	            System.out.println("Failed to connect to database table rentArea.");
 	        }
 		
 		
