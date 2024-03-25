@@ -3,6 +3,7 @@ package com.javaweb.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,15 +56,9 @@ public class BuildingServiceImpl implements BuildingService {
             
             // Retrieve values from the rent area repository
             List<Integer> valuesFromTableRentArea = rentAreaRepository.findValues(item.getId());
-            StringBuilder rentAreaStringBuilder = new StringBuilder();
-            for (int i = 0; i < valuesFromTableRentArea.size(); i++) 
-            {
-                rentAreaStringBuilder.append(valuesFromTableRentArea.get(i));
-                if (i < valuesFromTableRentArea.size() - 1) 
-                    rentAreaStringBuilder.append(", ");   
-            }
-            building.setRentArea(rentAreaStringBuilder.toString());
-            //////////////
+            String rentAreaString = String.join(", ", valuesFromTableRentArea.stream().map(Object::toString).collect(Collectors.toList()));
+            building.setRentArea(rentAreaString);
+
             
             
             building.setBrokerFee(item.getBrokeragefee());

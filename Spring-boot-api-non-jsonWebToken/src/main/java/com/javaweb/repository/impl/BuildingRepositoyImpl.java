@@ -190,7 +190,7 @@ public class BuildingRepositoyImpl implements BuildingRepository {
 
 		if (!flag)
 			return Collections.emptyList();
-		;
+		
 
 		sql += joinClause + whereClause;
 		///////////////
