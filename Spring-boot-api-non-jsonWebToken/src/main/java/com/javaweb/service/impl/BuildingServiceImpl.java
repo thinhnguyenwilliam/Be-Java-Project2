@@ -9,64 +9,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javaweb.DTO.BuildingDTO;
+import com.javaweb.converters.BuidlingConverter;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.DistrictRepository;
 import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.entity.BuildingEntity;
+import com.javaweb.repository.entity.DistrictEntity;
 import com.javaweb.service.BuildingService;
 
 @Service
 public class BuildingServiceImpl implements BuildingService {
 
-    @Autowired
-    private BuildingRepository buildingRepository;
-    
-    @Autowired
-    private RentAreaRepository rentAreaRepository;
-    
-    @Autowired
-    private DistrictRepository districtRepository;
+	@Autowired
+	private BuildingRepository buildingRepository;
 
-    @Override
-    public List<BuildingDTO> findBuilding(Map<String, Object> params, List<String> typeCode) 
-    {
-        List<BuildingEntity> buildingEntities = buildingRepository.findBuilding(params, typeCode);
-        List<BuildingDTO> result = new ArrayList<>();
+	@Autowired
+	private BuidlingConverter buidlingConverter;
 
-        for (BuildingEntity item : buildingEntities) 
-        {
-            BuildingDTO building = new BuildingDTO();
-            building.setName(item.getName());
-            
-            
-            
-            // Retrieve district name using DistrictRepository
-            String nameDistrict = districtRepository.findName(item.getDistrictId());           
-            // Construct address string
-            building.setAddress(item.getStreet() + ", " + item.getWard() + ", " + nameDistrict);
-            
-            
-            
-            building.setNumberOfBasement(item.getNumberOfBasement());
-            building.setManagerName(item.getManagerName());
-            building.setManagerPhoneNumber(item.getManagerNamePhoneNumber());
-            building.setFloorArea(item.getFloorArea());
-            
-            
-            
-            // Retrieve values from the rent area repository
-            List<Integer> valuesFromTableRentArea = rentAreaRepository.findValues(item.getId());
-            String rentAreaString = String.join(", ", valuesFromTableRentArea.stream().map(Object::toString).collect(Collectors.toList()));
-            building.setRentArea(rentAreaString);
+	@Override
+	public List<BuildingDTO> findBuilding(Map<String, Object> params, List<String> typeCode) {
+		List<BuildingEntity> buildingEntities = buildingRepository.findBuilding(params, typeCode);
+		List<BuildingDTO> result = new ArrayList<>();
 
-            
-            
-            building.setBrokerFee(item.getBrokeragefee());
-            building.setServiceFee(item.getServicefee());
-            building.setRentprice(item.getRentprice());
-
-            result.add(building);
-        }
-        return result;
-    }
+		for (BuildingEntity item : buildingEntities) 
+		{
+			BuildingDTO building = buidlingConverter.toBuildingDTO(item);//inject
+			result.add(building);
+		}
+		return result;
+	}
 }

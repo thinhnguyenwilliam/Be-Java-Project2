@@ -20,7 +20,7 @@ public class RentAreaRepositoryImpl implements RentAreaRepository
 {
 
 	@Override
-	public List<Integer> findValues(Integer buildingId) 
+	public List<String> findValues(Integer buildingId) 
 	{
 		StringBuilder sqlBuilder = new StringBuilder("SELECT * \n"
 													+ "FROM rentarea \n"
@@ -29,13 +29,17 @@ public class RentAreaRepositoryImpl implements RentAreaRepository
 		String sql = sqlBuilder.toString();
 		//////////////////
 	
-		List<Integer> result = new ArrayList<>();
+		List<String> rentAres = new ArrayList<>();
 		try (Connection conn = ConnectionUtil.getConnection();
 	             Statement stm = conn.createStatement();
 	             ResultSet rs = stm.executeQuery(sql)) {
 
 	            while (rs.next()) 
-	                result.add(rs.getInt("value"));
+	            {
+	                RentAreaEntity rentAreaEntity=new RentAreaEntity();
+	                rentAreaEntity.setValue(rs.getInt("value"));
+	                rentAres.add(rentAreaEntity.getValue().toString());
+	            }
 	            
 	            System.out.println("Connection to database successful table reantArea.");
 	        } catch (SQLException e) {
@@ -44,7 +48,7 @@ public class RentAreaRepositoryImpl implements RentAreaRepository
 	        }
 		
 		
-		return result;
+		return rentAres;
 	}
 
 	

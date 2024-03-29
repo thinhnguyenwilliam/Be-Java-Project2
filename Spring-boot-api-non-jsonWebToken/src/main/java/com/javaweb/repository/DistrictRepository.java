@@ -1,6 +1,8 @@
 package com.javaweb.repository;
 
+import com.javaweb.repository.entity.DistrictEntity;
+
 public interface DistrictRepository 
 {
-	String findName(Integer districtId);
+	DistrictEntity findById(Integer districtId);
 }

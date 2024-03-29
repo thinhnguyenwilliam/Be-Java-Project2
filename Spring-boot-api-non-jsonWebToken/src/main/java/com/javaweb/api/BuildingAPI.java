@@ -27,24 +27,20 @@ import com.javaweb.service.BuildingService;
 //this is place receive request
 
 
-public class BuildingAPI {
+public class BuildingAPI 
+{
 
 	@Autowired
 	private BuildingService buildingService;
 
 	
 	@GetMapping(value = "/api/Building")
-
-	
 	public List<BuildingDTO> findBuilding(@RequestParam Map<String, Object> params,
-										  @RequestParam(value = "maLoai", required = false) List<String> typeCode) 
+										  @RequestParam(value = "typeCode", required = false) List<String> typeCode) 
 	{
 
 		List<BuildingDTO> result = buildingService.findBuilding(params, typeCode);
 		return result;
 
 	}
-
-
-
 }

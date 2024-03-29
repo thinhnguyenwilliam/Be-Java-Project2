@@ -14,190 +14,112 @@ import org.springframework.stereotype.Repository;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.utils.ConnectionUtil;
+import com.javaweb.utils.NumberUtil;
+import com.javaweb.utils.StringUtil;
 
 @Repository
-public class BuildingRepositoyImpl implements BuildingRepository {
+public class BuildingRepositoyImpl implements BuildingRepository 
+{
 
-	@Override
-	public List<BuildingEntity> findBuilding(Map<String, Object> params, List<String> typeCode) {
-		String sql = "SELECT DISTINCT building.* \n" + "FROM building \n";
-		String joinClause = "";
-		String whereClause = "WHERE 1=1";
-
-		///////////////////
-		boolean flag = false;
-
-		if (params.containsKey("ten")) {
-			String name = (String) params.get("ten");
-			if (name != null && !name.equals("")) {
-				whereClause += " AND building.name LIKE '%" + name + "%'";
-				flag = true;
-			}
-
-		}
-
-		if (params.containsKey("dienTichSan")) {
-			String floorAreaStr = (String) params.get("dienTichSan");
-			if (!floorAreaStr.isEmpty()) {
-				Integer floorArea = Integer.valueOf(floorAreaStr);
-				whereClause += " AND building.floorarea = " + floorArea;
-				flag = true;
-			}
-		}
-
-		if (params.containsKey("quan")) {
-			String districtStr = (String) params.get("quan");
-			if (!districtStr.isEmpty()) {
-				Integer district = Integer.valueOf(districtStr);
-				whereClause += " AND building.districtid = " + district;
-				flag = true;
-			}
-		}
-
-		if (params.containsKey("phuong")) {
-			String wardStr = (String) params.get("phuong");
-			if (wardStr != null && !wardStr.equals("")) {
-				whereClause += " AND building.ward LIKE '%" + wardStr + "%'";
-				flag = true;
-			}
-		}
-
-		if (params.containsKey("duong")) {
-			String streetStr = (String) params.get("duong");
-			if (streetStr != null && !streetStr.equals("")) {
-				whereClause += " AND building.street LIKE '%" + streetStr + "%'";
-				flag = true;
-			}
-		}
-
-		if (params.containsKey("soTangHam")) {
-			String numberOfBasementStr = (String) params.get("soTangHam");
-			if (!numberOfBasementStr.isEmpty()) {
-				Integer numberOfBasement = Integer.valueOf(numberOfBasementStr);
-				whereClause += " AND building.numberofbasement = " + numberOfBasement;
-				flag = true;
-			}
-		}
-
-		if (params.containsKey("huong")) {
-			String directionStr = (String) params.get("huong");
-			if (directionStr != null && !directionStr.equals("")) {
-				whereClause += " AND building.direction LIKE '%" + directionStr + "%'";
-				flag = true;
-			}
-		}
-
-		if (params.containsKey("hang")) {
-			String levelStr = (String) params.get("hang");
-			if (levelStr != null && !levelStr.equals("")) {
-				whereClause += " AND building.level LIKE '%" + levelStr + "%'";
-				flag = true;
-			}
-		}
-
-		/////////////
-		if (params.containsKey("dienTichTu")) {
-			String areaFromStr = (String) params.get("dienTichTu");
-			if (!areaFromStr.isEmpty()) {
-				Integer areaFrom = Integer.valueOf(areaFromStr);
-
-				joinClause += "JOIN rentarea ON rentarea.buildingid = building.id\n";
-
-				whereClause += " AND rentarea.value >= " + areaFrom;
-				flag = true;
-			}
-		}
-
-		if (params.containsKey("dienTichDen")) {
-			String areaToStr = (String) params.get("dienTichDen");
-			if (!areaToStr.isEmpty()) {
-				Integer areaTo = Integer.valueOf(areaToStr);
-
-				if (!params.containsKey("dienTichTu"))
-					joinClause += "JOIN rentarea ON rentarea.buildingid = building.id\n";
-
-				whereClause += " AND rentarea.value <= " + areaTo;
-				flag = true;
-			}
-		}
-		///////////
-
-		/////////////
-		if (params.containsKey("giaThueTu")) {
-			String rentPriceFromStr = (String) params.get("giaThueTu");
-			if (!rentPriceFromStr.isEmpty()) {
-				Integer rentPriceFrom = Integer.valueOf(rentPriceFromStr);
-
-
-				whereClause += " AND building.rentprice >= " + rentPriceFrom;
-				flag = true;
-			}
-		}
-
-		if (params.containsKey("giaThueDen")) {
-			String rentPriceToStr = (String) params.get("giaThueDen");
-			if (!rentPriceToStr.isEmpty()) {
-				Integer rentPriceTo = Integer.valueOf(rentPriceToStr);
-
-
-				whereClause += " AND building.rentprice <= " + rentPriceTo;
-				flag = true;
-			}
-		}
-		///////////
-
-		if (params.containsKey("tenQuanLy")) {
-			String managerNameStr = (String) params.get("tenQuanLy");
-			if (managerNameStr != null && !managerNameStr.equals("")) {
-				whereClause += " AND building.managername LIKE '%" + managerNameStr + "%'";
-				flag = true;
-			}
-		}
-
-		if (params.containsKey("sdtQuanLy")) {
-			String managerPhoneNumberStr = (String) params.get("sdtQuanLy");
-			if (managerPhoneNumberStr != null && !managerPhoneNumberStr.equals("")) {
-				whereClause += " AND building.managerphonenumber LIKE '%" + managerPhoneNumberStr + "%'";
-				flag = true;
-			}
-		}
-
-		if (params.containsKey("maNhanVien")) {
-			String staffIdStr = (String) params.get("maNhanVien");
-			if (!staffIdStr.isEmpty()) {
-				Integer staffId = Integer.valueOf(staffIdStr);
-				joinClause += "JOIN assignmentbuilding ON building.id = assignmentbuilding.buildingid\n";
-				whereClause += " AND  assignmentbuilding.staffid = " + staffId;
-				flag = true;
-			}
-		}
-
-		if (params.containsKey("maLoai")) {
-			if (typeCode != null && !typeCode.isEmpty()) {
-				flag = true;
-				joinClause += "JOIN buildingrenttype ON building.id = buildingrenttype.buildingid \n"
-						+ "JOIN renttype ON renttype.id = buildingrenttype.renttypeid \n";
-				whereClause += " AND renttype.code IN (";
-				for (int i = 0; i < typeCode.size(); i++) {
-					whereClause += "'" + typeCode.get(i) + "'";
-					if (i < typeCode.size() - 1) {
-						whereClause += ", ";
-					}
-				}
-				whereClause += ")\n";
-			}
-		}
-
-		if (!flag)
-			return Collections.emptyList();
+	static void queryJoin(Map<String, Object> params, List<String> typeCode, StringBuilder sql)
+	{
+		String areaFrom = (String) params.get("areaFrom");
+		String areaTo = (String) params.get("areaTo");
+		if(StringUtil.checkString(areaFrom) || StringUtil.checkString(areaTo))
+			sql.append("JOIN rentarea r ON r.buildingid = b.id\n");
 		
-
-		sql += joinClause + whereClause;
+		String staffId = (String) params.get("staffId");
+		if(StringUtil.checkString(staffId))
+			sql.append("JOIN assignmentbuilding asm ON b.id = asm.buildingid\n");
+		
+		if (typeCode != null && !typeCode.isEmpty())
+			sql.append("JOIN buildingrenttype brt ON b.id = brt.buildingid \n"
+						+ "JOIN renttype rt ON rt.id = brt.renttypeid \n");
+		
+	}
+	
+	
+	//Normal: LIKE, =
+	//Special:<=, >=, 'In'(OR multiple times) in SQL, need to join
+	static void queryWhereNormal(Map<String, Object> params, StringBuilder whereClause)
+	{
+		for(Map.Entry<String, Object> entry:params.entrySet())
+		{
+			//cau if duoi day la cho hieu thoi cho minh thay no chua dung cho startwith vi cung co nhieu cai khac cung start with
+			if(!entry.getKey().equals("staffId") && !entry.getKey().equals("typeCode")
+					&& !entry.getKey().startsWith("area") && !entry.getKey().startsWith("rentPrice"))
+			{
+				String data=entry.getValue().toString();
+				if(StringUtil.checkString(data)) 
+				{
+					if(NumberUtil.checkNumber(data))//if it is Number, "12344545" it can parseInt but "123sfd" i can't
+						whereClause.append("AND b." +entry.getKey().toLowerCase()+ " = "+data +"\n");
+					else//if it is String
+						whereClause.append("AND b." +entry.getKey().toLowerCase()+ " LIKE '%"+data +"%'\n");
+					
+				}
+			}
+		}
+	}
+	
+	static void queryWhereSpecial(Map<String, Object> params, List<String> typeCode, StringBuilder whereClause)
+	{
+		String rentAreaFrom = (String) params.get("areaFrom");
+		String rentAreaTo = (String) params.get("areaTo");
+		String rentPriceFrom = (String) params.get("rentPriceFrom");
+		String rentPriceTo = (String) params.get("rentPriceTo");
+		String staffId = (String) params.get("staffId");
+		if(StringUtil.checkString(staffId)) 
+			whereClause.append("AND asm.staffid = "+staffId +'\n');
+		
+		if(StringUtil.checkString(rentAreaFrom)) 
+			whereClause.append("AND r.value >= "+rentAreaFrom +'\n');
+		if(StringUtil.checkString(rentAreaTo)) 
+			whereClause.append("AND r.value <= "+rentAreaTo +'\n');
+		
+		if(StringUtil.checkString(rentPriceFrom)) 
+			whereClause.append("AND b.rentprice >= "+rentAreaFrom +'\n');
+		if(StringUtil.checkString(rentPriceTo)) 
+			whereClause.append("AND b.rentprice <= "+rentAreaTo +'\n');
+		
+		//Java 7
+		if(typeCode!=null && !typeCode.isEmpty())
+		{
+			whereClause.append(" AND renttype.code IN (");
+			for (int i = 0; i < typeCode.size(); i++) 
+			{
+				whereClause.append("'" + typeCode.get(i) + "'");
+				if (i < typeCode.size() - 1) {
+					whereClause.append(", ");
+				}
+			}
+			whereClause.append(")\n");
+		}
+	}
+	
+	
+	@Override
+	public List<BuildingEntity> findBuilding(Map<String, Object> params, List<String> typeCode) 
+	{
+		StringBuilder sql =new StringBuilder("SELECT  b.id, b.name, b.districtid, "
+				+ "b.street, b.ward, b.numberofbasement, b.managername, "
+				+ "b.managerphonenumber, b.floorarea, b.rentprice, b.brokeragefee, b.servicefee \n" 
+				+ "FROM building b \n");
+		
+		queryJoin(params, typeCode, sql);
+		
+		StringBuilder whereClause = new StringBuilder("WHERE 1=1\n");
+		queryWhereNormal(params, whereClause);
+		queryWhereSpecial(params, typeCode, whereClause);
+		
+		sql.append(whereClause);
+		sql.append("GROUP BY b.id");
+		
 		///////////////
 		List<BuildingEntity> result = new ArrayList<>();
 		try (Connection conn = ConnectionUtil.getConnection();
 				Statement stm = conn.createStatement();
-				ResultSet rs = stm.executeQuery(sql)) {
+				ResultSet rs = stm.executeQuery(sql.toString())) {	
 
 			while (rs.next()) {
 				BuildingEntity building = new BuildingEntity();
