@@ -11,15 +11,30 @@ public class BuildingEntity
 	private Integer districtId;
 	private Integer numberOfBasement;
 	private String managerName;
-	private String managerNamePhoneNumber;
+	private String managerPhoneNumber;
 	private Integer floorArea;
 	private Integer brokeragefee;
 	private Integer servicefee;
 	private Integer rentprice;
+	private String direction;
+	private String level;
 	private Integer Id;
 	
-
-		
+	
+	
+	
+	public String getDirection() {
+		return direction;
+	}
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
 	public Integer getId() {
 		return Id;
 	}
@@ -88,12 +103,13 @@ public class BuildingEntity
 	public void setManagerName(String managerName) {
 		this.managerName = managerName;
 	}
-	public String getManagerNamePhoneNumber() {
-		return managerNamePhoneNumber;
+	public String getManagerPhoneNumber() {
+		return managerPhoneNumber;
 	}
-	public void setManagerNamePhoneNumber(String managerNamePhoneNumber) {
-		this.managerNamePhoneNumber = managerNamePhoneNumber;
+	public void setManagerPhoneNumber(String managerPhoneNumber) {
+		this.managerPhoneNumber = managerPhoneNumber;
 	}
+
 	
 	
 

@@ -2,6 +2,7 @@ package com.javaweb.converters;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,29 +24,28 @@ public class BuidlingConverter
 	@Autowired
 	private DistrictRepository districtRepository;
 	
-	
+	@Autowired //vi la Bean va de inject cac dependency vao
+	private ModelMapper modelMapper;
 	
 	
 	public BuildingDTO toBuildingDTO(BuildingEntity item) 
 	{
-		BuildingDTO building = new BuildingDTO();
-		building.setName(item.getName());
+		//BuildingDTO.class : generic class
+		BuildingDTO building = modelMapper.map(item, BuildingDTO.class);
+		
+		
+		
 
 		DistrictEntity district = districtRepository.findById(item.getDistrictId());
 		building.setAddress(item.getStreet() + ", " + item.getWard() + ", " + district.getName());
 
-		building.setNumberOfBasement(item.getNumberOfBasement());
-		building.setManagerName(item.getManagerName());
-		building.setManagerPhoneNumber(item.getManagerNamePhoneNumber());
-		building.setFloorArea(item.getFloorArea());
+
 
 		// Retrieve values from the rent area repository
 		List<String> rentAres = rentAreaRepository.findValues(item.getId());
 		building.setRentArea(String.join(", ", rentAres));
 
-		building.setBrokerFee(item.getBrokeragefee());
-		building.setServiceFee(item.getServicefee());
-		building.setRentprice(item.getRentprice());
+
 		
 		return building;
 	}
