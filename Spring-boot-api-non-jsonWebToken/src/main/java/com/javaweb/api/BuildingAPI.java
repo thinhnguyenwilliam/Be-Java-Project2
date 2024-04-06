@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,9 +31,14 @@ import com.javaweb.service.BuildingService;
 //this is place receive request
 
 
+@PropertySource("classpath:application.properties")
+
 public class BuildingAPI 
 {
-
+	@Value("${dev.Nguyen}")
+	private String systemValue;
+	
+	
 	@Autowired
 	private BuildingService buildingService;
 
@@ -38,7 +47,7 @@ public class BuildingAPI
 	public List<BuildingDTO> findBuilding(@RequestParam Map<String, Object> params,
 										  @RequestParam(value = "typeCode", required = false) List<String> typeCode) 
 	{
-
+		System.out.println(systemValue);
 		List<BuildingDTO> result = buildingService.findBuilding(params, typeCode);
 		return result;
 

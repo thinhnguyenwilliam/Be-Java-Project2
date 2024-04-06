@@ -21,9 +21,11 @@ import com.javaweb.utils.NumberUtil;
 import com.javaweb.utils.StringUtil;
 
 @Repository
-public class BuildingRepositoyImpl implements BuildingRepository {
+public class BuildingRepositoyImpl implements BuildingRepository 
+{
 
-	static void queryJoin(BuidingSearchBuilder builder, StringBuilder sql) {
+	static void queryJoin(BuidingSearchBuilder builder, StringBuilder sql) 
+	{
 		Integer staffId = builder.getStaffId();
 		if (staffId != null)
 			sql.append("JOIN assignmentbuilding asm ON b.id = asm.buildingid\n");
@@ -36,7 +38,9 @@ public class BuildingRepositoyImpl implements BuildingRepository {
 
 	// Normal: LIKE, =
 	// Special:<=, >=, 'In'(OR multiple times) in SQL, need to join
-	static void queryWhereNormal(BuidingSearchBuilder builder, StringBuilder whereClause) {
+	//Reflection
+	static void queryWhereNormal(BuidingSearchBuilder builder, StringBuilder whereClause) 
+	{
 //		for(Map.Entry<String, Object> entry:params.entrySet())
 //		{
 //			//cau if duoi day la cho hieu thoi cho minh thay no chua dung cho startwith vi cung co nhieu cai khac cung start with
@@ -116,7 +120,8 @@ public class BuildingRepositoyImpl implements BuildingRepository {
 	            whereClause.append("AND asm.staffid = ").append(staffId).append('\n');
 
 	        // Append conditions for rent area if applicable
-	        if (rentAreaFrom != null || rentAreaTo != null) {
+	        if (rentAreaFrom != null || rentAreaTo != null) 
+	        {
 	            whereClause.append("AND EXISTS (SELECT * FROM rentarea r WHERE r.buildingid = b.id ");
 
 	            if (rentAreaTo != null)
@@ -151,7 +156,8 @@ public class BuildingRepositoyImpl implements BuildingRepository {
 	}
 
 	@Override
-	public List<BuildingEntity> findBuilding(BuidingSearchBuilder builder) {
+	public List<BuildingEntity> findBuilding(BuidingSearchBuilder builder) 
+	{
 		StringBuilder sql = new StringBuilder(
 				"SELECT  b.id, b.name, b.districtid, " + "b.street, b.ward, b.numberofbasement, b.managername, "
 						+ "b.managerphonenumber, b.floorarea, b.rentprice, b.brokeragefee, b.servicefee \n"
@@ -172,7 +178,8 @@ public class BuildingRepositoyImpl implements BuildingRepository {
 				Statement stm = conn.createStatement();
 				ResultSet rs = stm.executeQuery(sql.toString())) {
 
-			while (rs.next()) {
+			while (rs.next()) 
+			{
 				BuildingEntity building = new BuildingEntity();
 				building.setName(rs.getString("name"));
 				building.setDistrictId(rs.getInt("districtid"));

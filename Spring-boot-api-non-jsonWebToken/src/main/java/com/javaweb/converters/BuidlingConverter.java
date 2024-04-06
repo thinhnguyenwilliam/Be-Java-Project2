@@ -32,13 +32,10 @@ public class BuidlingConverter
 	{
 		//BuildingDTO.class : generic class
 		BuildingDTO building = modelMapper.map(item, BuildingDTO.class);
-		
-		
-		
+
 
 		DistrictEntity district = districtRepository.findById(item.getDistrictId());
 		building.setAddress(item.getStreet() + ", " + item.getWard() + ", " + district.getName());
-
 
 
 		// Retrieve values from the rent area repository

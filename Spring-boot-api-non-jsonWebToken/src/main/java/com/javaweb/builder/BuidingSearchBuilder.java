@@ -3,6 +3,8 @@ package com.javaweb.builder;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//builder pattern
 public class BuidingSearchBuilder 
 {
 	private String name;
