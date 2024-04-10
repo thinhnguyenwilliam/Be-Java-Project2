@@ -1,116 +1,77 @@
 package com.javaweb.repository.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class BuildingEntity
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity
+@Table(name = "building")
+@Getter
+@Setter
+public class BuildingEntity 
 {
-	//trong table building
-	private String name;
-	private String ward;
-	private String street;
-	private Integer districtId;
-	private Integer numberOfBasement;
-	private String managerName;
-	private String managerPhoneNumber;
-	private Integer floorArea;
-	private Integer brokeragefee;
-	private Integer servicefee;
-	private Integer rentprice;
-	private String direction;
-	private String level;
+	@Id // Indicates the primary key field of the entity.
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
 	private Integer Id;
-	
-	
-	
-	
-	public String getDirection() {
-		return direction;
-	}
-	public void setDirection(String direction) {
-		this.direction = direction;
-	}
-	public String getLevel() {
-		return level;
-	}
-	public void setLevel(String level) {
-		this.level = level;
-	}
-	public Integer getId() {
-		return Id;
-	}
-	public void setId(Integer id) {
-		Id = id;
-	}
-		
-	public Integer getRentprice() {
-		return rentprice;
-	}
-	public void setRentprice(Integer rentprice) {
-		this.rentprice = rentprice;
-	}
-	public Integer getBrokeragefee() {
-		return brokeragefee;
-	}
-	public void setBrokeragefee(Integer brokeragefee) {
-		this.brokeragefee = brokeragefee;
-	}
-	public Integer getServicefee() {
-		return servicefee;
-	}
-	public void setServicefee(Integer servicefee) {
-		this.servicefee = servicefee;
-	}
 
-	public Integer getFloorArea() {
-		return floorArea;
-	}
-	public void setFloorArea(Integer floorArea) {
-		this.floorArea = floorArea;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getWard() {
-		return ward;
-	}
-	public void setWard(String ward) {
-		this.ward = ward;
-	}
-	public String getStreet() {
-		return street;
-	}
-	public void setStreet(String street) {
-		this.street = street;
-	}
-	public Integer getDistrictId() {
-		return districtId;
-	}
-	public void setDistrictId(Integer districtId) {
-		this.districtId = districtId;
-	}
-	public Integer getNumberOfBasement() {
-		return numberOfBasement;
-	}
-	public void setNumberOfBasement(Integer numberOfBasement) {
-		this.numberOfBasement = numberOfBasement;
-	}
-	public String getManagerName() {
-		return managerName;
-	}
-	public void setManagerName(String managerName) {
-		this.managerName = managerName;
-	}
-	public String getManagerPhoneNumber() {
-		return managerPhoneNumber;
-	}
-	public void setManagerPhoneNumber(String managerPhoneNumber) {
-		this.managerPhoneNumber = managerPhoneNumber;
-	}
+	@Column(name = "name")
+	private String name;
 
+	@Column(name = "ward")
+	private String ward;
+
+	@Column(name = "street")
+	private String street;
+
+
+
+	@Column(name = "numberofbasement")
+	private Integer numberOfBasement;
+
+	@Column(name = "managername")
+	private String managerName;
+
+	@Column(name = "managerphonenumber")
+	private String managerPhoneNumber;
+
+	@Column(name = "floorarea")
+	private Integer floorArea;
+
+	@Column(name = "brokeragefee")
+	private Integer brokeragefee;
+
+	@Column(name = "servicefee")
+	private Integer servicefee;
+
+	@Column(name = "rentprice")
+	private Integer rentprice;
+
+	@Column(name = "direction")
+	private String direction;
+
+	@Column(name = "level")
+	private String level;
+
+	@OneToMany(mappedBy = "building", fetch = FetchType.LAZY)//mappedBy value same variable table rentArea
+	private List<RentAreaEntity> rentAreas = new ArrayList<>();
 	
 	
-
+	@ManyToOne
+    @JoinColumn(name = "districtid") // the foreign key column
+    private DistrictEntity district;
+	
 }

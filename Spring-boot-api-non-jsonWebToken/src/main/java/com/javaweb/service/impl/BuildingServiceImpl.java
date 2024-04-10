@@ -13,7 +13,6 @@ import com.javaweb.builder.BuidingSearchBuilder;
 import com.javaweb.converters.BuidingSearchBuilderConverter;
 import com.javaweb.converters.BuidlingConverter;
 import com.javaweb.repository.BuildingRepository;
-import com.javaweb.repository.DistrictRepository;
 import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.repository.entity.DistrictEntity;

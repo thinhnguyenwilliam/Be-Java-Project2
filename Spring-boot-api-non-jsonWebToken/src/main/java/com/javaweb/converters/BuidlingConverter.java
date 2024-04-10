@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.javaweb.DTO.BuildingDTO;
-import com.javaweb.repository.DistrictRepository;
 import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.repository.entity.DistrictEntity;
@@ -21,8 +20,7 @@ public class BuidlingConverter
 	@Autowired
 	private RentAreaRepository rentAreaRepository;
 
-	@Autowired
-	private DistrictRepository districtRepository;
+	
 	
 	@Autowired //vi la Bean va de inject cac dependency vao
 	private ModelMapper modelMapper;
@@ -34,8 +32,8 @@ public class BuidlingConverter
 		BuildingDTO building = modelMapper.map(item, BuildingDTO.class);
 
 
-		DistrictEntity district = districtRepository.findById(item.getDistrictId());
-		building.setAddress(item.getStreet() + ", " + item.getWard() + ", " + district.getName());
+		//DistrictEntity district = districtRepository.findById(item.getDistrictId());
+		building.setAddress(item.getStreet() + ", " + item.getWard() + ", " + item.getDistrict().getName());
 
 
 		// Retrieve values from the rent area repository

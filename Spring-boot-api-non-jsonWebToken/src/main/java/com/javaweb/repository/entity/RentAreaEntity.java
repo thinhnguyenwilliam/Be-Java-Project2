@@ -1,32 +1,29 @@
 package com.javaweb.repository.entity;
 
+import javax.persistence.*;
+
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Table(name="rentarea")
+@Getter
+@Setter
 public class RentAreaEntity 
 {
-	private Integer buildingId;
-	private Integer value;
+	@Id           // Indicates the primary key field of the entity.
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
 	private Integer id;
 	
+
+	@Column(name="value")
+	private Integer value;
 	
 	
-	public Integer getBuildingId() {
-		return buildingId;
-	}
-	public void setBuildingId(Integer buildingId) {
-		this.buildingId = buildingId;
-	}
-	public Integer getValue() {
-		return value;
-	}
-	public void setValue(Integer value) {
-		this.value = value;
-	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	
-	
+	@ManyToOne
+    @JoinColumn(name = "buildingid") // Assuming "buildingId" is the foreign key column
+    private BuildingEntity building;
 	
 }
