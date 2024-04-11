@@ -52,13 +52,13 @@ public class BuildingEntity
 	private Integer floorArea;
 
 	@Column(name = "brokeragefee")
-	private Integer brokeragefee;
+	private Integer brokerageFee;
 
 	@Column(name = "servicefee")
-	private Integer servicefee;
+	private Integer serviceFee;
 
 	@Column(name = "rentprice")
-	private Integer rentprice;
+	private Integer rentPrice;
 	
 
 	@Column(name = "direction")

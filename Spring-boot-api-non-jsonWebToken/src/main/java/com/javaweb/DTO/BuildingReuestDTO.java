@@ -10,20 +10,23 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BuildingDTO 
+public class BuildingReuestDTO 
 {
+	//ten cac bien phai y chang tren postman (tinh lun in hoa in thuong)
+	private Integer Id;
 	private String name;
-	private String address;//combine street, ward, districtName
+	private String ward;
+	private String street;
+	private Integer districtId;
 	private Integer numberOfBasement;
 	private String managerName;
 	private String managerPhoneNumber;
 	private Integer floorArea;
 	private Integer emptyArea;
-	private String rentArea;//gom nhieu so cach nhau dau ", "
-	private Integer brokerFee;
+	private Integer brokerageFee;
 	private Integer serviceFee;
-	private Integer rentprice;
-	
-	
-	
+	private Integer rentPrice;
+	private String direction;
+	private String level;
+
 }
