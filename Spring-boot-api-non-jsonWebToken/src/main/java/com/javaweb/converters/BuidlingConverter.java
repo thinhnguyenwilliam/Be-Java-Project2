@@ -1,6 +1,7 @@
 package com.javaweb.converters;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,37 +12,28 @@ import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.repository.entity.DistrictEntity;
 
-
-
-
-@Component // This annotation is used for automatic java bean detection, no constructor like Interface
+@Component // This annotation is used for automatic java bean detection, no constructor
+			// like Interface
 public class BuidlingConverter 
 {
-	@Autowired
-	private RentAreaRepository rentAreaRepository;
 
-	
-	
-	@Autowired //vi la Bean va de inject cac dependency vao
+
+	@Autowired // vi la Bean va de inject cac dependency vao
 	private ModelMapper modelMapper;
-	
-	
+
 	public BuildingDTO toBuildingDTO(BuildingEntity item) 
 	{
-		//BuildingDTO.class : generic class
+		// BuildingDTO.class : generic class
 		BuildingDTO building = modelMapper.map(item, BuildingDTO.class);
 
-
-		//DistrictEntity district = districtRepository.findById(item.getDistrictId());
 		building.setAddress(item.getStreet() + ", " + item.getWard() + ", " + item.getDistrict().getName());
 
+		// Corrected usage of map and collect for joining rent area values
+        String rentAreas = item.getRentAreas().stream()
+                            .map(x -> x.getValue().toString())
+                            .collect(Collectors.joining(", "));
+        building.setRentArea(rentAreas);
 
-		// Retrieve values from the rent area repository
-		List<String> rentAres = rentAreaRepository.findValues(item.getId());
-		building.setRentArea(String.join(", ", rentAres));
-
-
-		
 		return building;
 	}
 }

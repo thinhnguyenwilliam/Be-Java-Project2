@@ -59,19 +59,22 @@ public class BuildingEntity
 
 	@Column(name = "rentprice")
 	private Integer rentprice;
+	
 
 	@Column(name = "direction")
 	private String direction;
 
+
 	@Column(name = "level")
 	private String level;
 
-	@OneToMany(mappedBy = "building", fetch = FetchType.LAZY)//mappedBy value same variable table rentArea
+
+	@OneToMany(mappedBy = "building")// default fetch = FetchType.LAZY
 	private List<RentAreaEntity> rentAreas = new ArrayList<>();
 	
 	
 	@ManyToOne
-    @JoinColumn(name = "districtid") // the foreign key column
+    @JoinColumn(name = "districtid") // the foreign key column, default FetchType.EAGER
     private DistrictEntity district;
 	
 }
