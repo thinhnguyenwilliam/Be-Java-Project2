@@ -28,13 +28,7 @@ import com.javaweb.service.BuildingService;
 
 @Service
 
-
-
-
-
-
-public class BuildingServiceImpl implements BuildingService 
-{
+public class BuildingServiceImpl implements BuildingService {
 
 	@Autowired
 	private BuildingRepository buildingRepository;
@@ -46,11 +40,17 @@ public class BuildingServiceImpl implements BuildingService
 	private BuidingSearchBuilderConverter buidingSearchBuilderConverter;
 
 	@Override
-	public List<BuildingDTO> findBuilding(Map<String, Object> params, List<String> typeCode) 
-	{
+	public List<BuildingDTO> findBuilding(Map<String, Object> params, List<String> typeCode) {
 		BuidingSearchBuilder buidingSearchBuilder = buidingSearchBuilderConverter.toBuidingSearchBuilder(params,
 				typeCode);
-		List<BuildingEntity> buildingEntities = buildingRepository.findBuilding(buidingSearchBuilder);
+
+		// List<BuildingEntity> buildingEntities =
+		// buildingRepository.findBuilding(buidingSearchBuilder);
+		// List<BuildingEntity> buildingEntities = buildingRepository.findAll();
+		// BuildingEntity buildingEntity =
+		// buildingRepository.findById(3).get();//findOne cung la tim theo ID
+		List<BuildingEntity> buildingEntities = buildingRepository.findByNameContaining(buidingSearchBuilder.getName());
+
 		List<BuildingDTO> result = new ArrayList<>();
 
 		for (BuildingEntity item : buildingEntities) {
@@ -59,7 +59,5 @@ public class BuildingServiceImpl implements BuildingService
 		}
 		return result;
 	}
-
-
 
 }

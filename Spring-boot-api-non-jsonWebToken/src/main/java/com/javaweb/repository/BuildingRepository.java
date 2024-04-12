@@ -1,14 +1,17 @@
 package com.javaweb.repository;
 
 import java.util.List;
-import java.util.Map;
 
-import com.javaweb.builder.BuidingSearchBuilder;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.javaweb.repository.entity.BuildingEntity;
 
-public interface BuildingRepository 
+
+//this interface extends JpaRepository, indicating that it will handle CRUD operations for entities 
+//of type BuildingEntity, which has a primary key of type Integer
+
+
+public interface BuildingRepository extends JpaRepository<BuildingEntity, Integer>
 {
-	
-	List<BuildingEntity> findBuilding(BuidingSearchBuilder builder);
-	
+	List<BuildingEntity> findByNameContaining(String name);//Containing: gan dung
 }

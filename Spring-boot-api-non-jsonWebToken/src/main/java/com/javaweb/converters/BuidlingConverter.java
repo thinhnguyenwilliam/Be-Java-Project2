@@ -32,7 +32,7 @@ public class BuidlingConverter
         String rentAreas = item.getRentAreas().stream()
                             .map(x -> x.getValue().toString())
                             .collect(Collectors.joining(", "));
-        //building.setRentArea(rentAreas);
+        building.setRentArea(rentAreas);
 
 		return building;
 	}

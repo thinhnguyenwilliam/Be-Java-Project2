@@ -28,7 +28,7 @@ import com.javaweb.utils.StringUtil;
 
 @Repository
 @Primary
-public class BuildingRepositoyImpl implements BuildingRepository 
+public class BuildingRepositoyImpl
 {
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -164,7 +164,7 @@ public class BuildingRepositoyImpl implements BuildingRepository
 	    }
 	}
 
-	@Override
+	//@Override
 	public List<BuildingEntity> findBuilding(BuidingSearchBuilder builder) 
 	{
 		StringBuilder sql = new StringBuilder(
