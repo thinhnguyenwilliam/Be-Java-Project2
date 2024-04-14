@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import com.javaweb.builder.BuidingSearchBuilder;
 import com.javaweb.utils.MapUtil;
 
+
+//builder pattern
 @Component
 public class BuidingSearchBuilderConverter 
 {
