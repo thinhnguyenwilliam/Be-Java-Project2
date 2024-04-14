@@ -1,4 +1,4 @@
-package com.javaweb.repository.impl;
+package com.javaweb.repository.custom.impl;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -21,14 +21,14 @@ import org.springframework.stereotype.Repository;
 
 import com.javaweb.builder.BuidingSearchBuilder;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.custom.BuildingRepositoryCustom;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.utils.ConnectionUtil;
 import com.javaweb.utils.NumberUtil;
 import com.javaweb.utils.StringUtil;
 
 @Repository
-@Primary
-public class BuildingRepositoyImpl
+public class BuildingRepositoryImpl implements BuildingRepositoryCustom
 {
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -164,8 +164,8 @@ public class BuildingRepositoyImpl
 	    }
 	}
 
-	//@Override
-	public List<BuildingEntity> findBuilding(BuidingSearchBuilder builder) 
+	@Override
+	public List<BuildingEntity> findAll(BuidingSearchBuilder builder) 
 	{
 		StringBuilder sql = new StringBuilder(
 				"SELECT  b.id, b.name, b.districtid, b.street, b.ward, b.numberofbasement, b.managername, "

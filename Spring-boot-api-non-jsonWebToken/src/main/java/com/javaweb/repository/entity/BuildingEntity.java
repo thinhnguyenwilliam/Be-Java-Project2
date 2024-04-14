@@ -22,11 +22,10 @@ import javax.persistence.OneToMany;
 @Table(name = "building")
 @Getter
 @Setter
-public class BuildingEntity 
-{
+public class BuildingEntity {
 	@Id // Indicates the primary key field of the entity.
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment
-	private Integer Id;
+	private Integer id;
 
 	@Column(name = "name")
 	private String name;
@@ -36,8 +35,6 @@ public class BuildingEntity
 
 	@Column(name = "street")
 	private String street;
-
-
 
 	@Column(name = "numberofbasement")
 	private Integer numberOfBasement;
@@ -52,29 +49,25 @@ public class BuildingEntity
 	private Integer floorArea;
 
 	@Column(name = "brokeragefee")
-	private Integer brokerageFee;
+	private Double brokerageFee;
 
 	@Column(name = "servicefee")
-	private Integer serviceFee;
+	private String serviceFee;
 
 	@Column(name = "rentprice")
 	private Integer rentPrice;
-	
 
 	@Column(name = "direction")
 	private String direction;
 
-
 	@Column(name = "level")
 	private String level;
 
-
-	@OneToMany(mappedBy = "building")// default fetch = FetchType.LAZY
+	@OneToMany(mappedBy = "building") // default fetch = FetchType.LAZY
 	private List<RentAreaEntity> rentAreas = new ArrayList<>();
-	
-	
+
 	@ManyToOne
-    @JoinColumn(name = "districtid") // the foreign key column, default FetchType.EAGER
-    private DistrictEntity district;
-	
+	@JoinColumn(name = "districtid") // the foreign key column, default FetchType.EAGER
+	private DistrictEntity district;
+
 }

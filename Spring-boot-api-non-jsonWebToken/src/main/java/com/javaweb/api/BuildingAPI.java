@@ -55,7 +55,7 @@ public class BuildingAPI
 			@RequestParam(value = "typeCode", required = false) List<String> typeCode) 
 	{
 		System.out.println(systemValue);
-		List<BuildingDTO> result = buildingService.findBuilding(params, typeCode);
+		List<BuildingDTO> result = buildingService.findAll(params, typeCode);
 		return result;
 
 	}
@@ -68,43 +68,21 @@ public class BuildingAPI
 
 	private EntityManager entityManager;
 	
-	@Autowired // vi la Bean va de inject cac dependency vao
-	private ModelMapper modelMapper; // place under(position be carefully) 
+	
 
 	@PostMapping(value = "/api/Building")
 	public void createBuilding(@RequestBody BuildingReuestDTO buildingReuestDTO) 
-	{
-		BuildingEntity buildingEntity = modelMapper.map(buildingReuestDTO, BuildingEntity.class);
-		// Perform any additional operations and persist the entity
-
-		DistrictEntity districtEntity = entityManager.find(DistrictEntity.class, buildingReuestDTO.getDistrictId());
-		buildingEntity.setDistrict(districtEntity);
-
-		//entityManager.persist(buildingEntity);
-		entityManager.merge(buildingEntity);
+	{		
+		buildingService.createBuilding(buildingReuestDTO);
 	}
 	
 	///////////////////////////
 	
-// minh tu nghi ra
-//	@DeleteMapping(value = "/api/Building/{ids}")
-//	public void deleteBuildings(@PathVariable Integer[] ids) 
-//	{
-//	    for (Integer buildingId : ids) 
-//	    {
-//	        BuildingEntity buildingEntity = entityManager.find(BuildingEntity.class, buildingId);
-//	        if (buildingEntity != null)
-//	            entityManager.remove(buildingEntity);
-//	    }
-//	}
 
-	
-	
-	///////////
-	@DeleteMapping(value = "/api/Building/{id}")
-	public void deleteBuilding(@PathVariable Integer id) 
+	@DeleteMapping(value = "/api/Building/{ids}")
+	public void deleteBuildings(@PathVariable List<Integer> ids) 
 	{
-		BuildingEntity buildingEntity = entityManager.find(BuildingEntity.class, id);
-		entityManager.remove(buildingEntity);
+		buildingService.deleteBuilding(ids);
 	}
+
 }
