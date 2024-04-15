@@ -13,7 +13,7 @@ import lombok.Setter;
 public class BuildingReuestDTO 
 {
 	//ten cac bien phai y chang tren postman (tinh lun in hoa in thuong)
-	private Integer Id;
+	private Integer id;
 	private String name;
 	private String ward;
 	private String street;

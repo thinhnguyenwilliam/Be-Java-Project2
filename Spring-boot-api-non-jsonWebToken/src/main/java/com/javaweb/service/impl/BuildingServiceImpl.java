@@ -21,8 +21,10 @@ import com.javaweb.builder.BuidingSearchBuilder;
 import com.javaweb.converters.BuidingSearchBuilderConverter;
 import com.javaweb.converters.BuidlingConverter;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.repository.entity.DistrictEntity;
+import com.javaweb.repository.entity.RentAreaEntity;
 import com.javaweb.service.BuildingService;
 
 @Service
@@ -34,6 +36,9 @@ public class BuildingServiceImpl implements BuildingService
 
 	@Autowired
 	private BuildingRepository buildingRepository;
+	
+	@Autowired
+	private RentAreaRepository rentAreaRepository;
 
 	@Autowired
 	private BuidlingConverter buidlingConverter;
@@ -73,7 +78,30 @@ public class BuildingServiceImpl implements BuildingService
 		
 		//This line saves the newly created BuildingEntity object into the database using a repository
 		//.save: neu buildingEntity co ID thi se update(sua lai lun), nguoc lai se la them moi
-		buildingRepository.save(buildingEntity);
+		buildingRepository.save(buildingEntity);//luu y: building table run before rentArea table
+		
+		
+		
+		//List<RentAreaEntity> rentAreaEntities=new ArrayList<>();
+		RentAreaEntity rentAreaEntity1=new RentAreaEntity();
+		rentAreaEntity1.setBuilding(buildingEntity); // Set the buildingId directly
+		rentAreaEntity1.setValue(200);
+		
+		
+		RentAreaEntity rentAreaEntity2=new RentAreaEntity();
+		rentAreaEntity2.setBuilding(buildingEntity); // Set the buildingId directly
+		rentAreaEntity2.setValue(300);
+		
+		
+		//rentAreaEntities.add(rentAreaEntity1);
+		//rentAreaEntities.add(rentAreaEntity2);
+		
+		
+		rentAreaRepository.save(rentAreaEntity1);
+		rentAreaRepository.save(rentAreaEntity2);
+		
+		
+		//  buildingEntity.setRentAreas(rentAreaEntities);
 	}
 
 	@Override
@@ -81,6 +109,9 @@ public class BuildingServiceImpl implements BuildingService
 	{
 //		for(Integer id:ids)
 //			buildingRepository.deleteById(id);
+		
+		BuildingEntity buildingEntity=buildingRepository.findById(ids.get(0)).get();
+		rentAreaRepository.deleteAllByBuilding(buildingEntity);
 		buildingRepository.deleteByIdIn(ids);
 	}
 

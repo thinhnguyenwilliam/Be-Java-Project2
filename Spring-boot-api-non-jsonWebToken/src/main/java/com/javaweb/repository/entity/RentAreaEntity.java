@@ -26,4 +26,5 @@ public class RentAreaEntity
     @JoinColumn(name = "buildingid") // Assuming "buildingId" is the foreign key column
     private BuildingEntity building;
 	
+	
 }
